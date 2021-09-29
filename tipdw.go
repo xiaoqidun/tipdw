@@ -11,28 +11,28 @@ import (
 var client = &http.Client{Timeout: 5 * time.Second}
 
 type Body struct {
-	Status  int    `json:"status"`
-	Message string `json:"message"`
-	Result  Result `json:"result"`
+	Status  int    `json:"status"`  // 状态码，0为正常，其它为异常
+	Message string `json:"message"` // 对status的描述
+	Result  Result `json:"result"`  // IP定位结果
 }
 
 type Result struct {
-	IP       string   `json:"ip"`
-	AdInfo   AdInfo   `json:"ad_info"`
-	Location Location `json:"location"`
+	IP       string   `json:"ip"`       // 用于定位的IP地址
+	AdInfo   AdInfo   `json:"ad_info"`  // 定位行政区划信息
+	Location Location `json:"location"` // 定位坐标
 }
 
 type AdInfo struct {
-	Nation   string `json:"nation"`
-	Province string `json:"province"`
-	City     string `json:"city"`
-	District string `json:"district"`
-	Adcode   int    `json:"adcode"`
+	Nation   string `json:"nation"`   // 国家
+	Province string `json:"province"` // 省
+	City     string `json:"city"`     // 市
+	District string `json:"district"` // 区
+	Adcode   int    `json:"adcode"`   // 行政区划代码
 }
 
 type Location struct {
-	Lat float64 `json:"lat"`
-	Lng float64 `json:"lng"`
+	Lat float64 `json:"lat"` // 纬度
+	Lng float64 `json:"lng"` // 经度
 }
 
 // QueryIP 使用腾讯位置服务查询IP
