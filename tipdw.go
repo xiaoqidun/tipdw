@@ -5,10 +5,14 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"sync"
 	"time"
 )
 
-var client = &http.Client{Timeout: 5 * time.Second}
+var (
+	client  = &http.Client{Timeout: 5 * time.Second}
+	ipCache = &sync.Map{}
+)
 
 type Body struct {
 	Status  int    `json:"status"`  // 状态码，0为正常，其它为异常
@@ -37,6 +41,11 @@ type Location struct {
 
 // QueryIP 使用腾讯位置服务查询IP
 func QueryIP(sk string, key string, ip string) (result Result, err error) {
+	v, ok := ipCache.Load(ip)
+	if ok {
+		result = v.(Result)
+		return
+	}
 	arg := &reqLBS{
 		SK:   sk,
 		Path: "/ws/location/v1/ip",
@@ -68,5 +77,6 @@ func QueryIP(sk string, key string, ip string) (result Result, err error) {
 		return
 	}
 	result = bodyUnmarshal.Result
+	ipCache.Store(ip, bodyUnmarshal.Result)
 	return
 }
