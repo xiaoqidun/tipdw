@@ -36,7 +36,7 @@ type Location struct {
 }
 
 // QueryIP 使用腾讯位置服务查询IP
-func QueryIP(sk string, key string, ip string) (result *Result, err error) {
+func QueryIP(sk string, key string, ip string) (result Result, err error) {
 	arg := &reqLBS{
 		SK:   sk,
 		Path: "/ws/location/v1/ip",
@@ -67,6 +67,6 @@ func QueryIP(sk string, key string, ip string) (result *Result, err error) {
 		err = fmt.Errorf("resp code is %d, body is %s", bodyUnmarshal.Status, body)
 		return
 	}
-	result = &bodyUnmarshal.Result
+	result = bodyUnmarshal.Result
 	return
 }
