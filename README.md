@@ -4,7 +4,7 @@ Golang 腾讯IP定位库
 
 # 在线演示
 
-- [https://aite.xyz/tipdw](https://aite.xyz/tipdw)
+- [https://aite.xyz/demo/tipdw](https://aite.xyz/demo/tipdw)
 
 # 类似项目
 
