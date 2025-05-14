@@ -10,8 +10,8 @@ import (
 )
 
 var (
-	client  = &http.Client{Timeout: 5 * time.Second}
-	ipCache = &sync.Map{}
+	ipCache           = &sync.Map{}
+	DefaultHttpClient = &http.Client{Timeout: 5 * time.Second}
 )
 
 type Body struct {
@@ -58,7 +58,7 @@ func QueryIP(sk string, key string, ip string) (result Result, err error) {
 	if err != nil {
 		return
 	}
-	resp, err := client.Do(req)
+	resp, err := DefaultHttpClient.Do(req)
 	if err != nil {
 		return
 	}
